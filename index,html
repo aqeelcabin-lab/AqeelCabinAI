@@ -136,10 +136,11 @@
 </section>
 
 <script>
-  const ASSISTANT_URL = "https://script.google.com/macros/s/AKfycbwVziG6bSxxsNTgzxFZzufeE-dSSeqwCEUWIDNuC3Ox-XKQRFMVdSwEzo3GsAD4F0sf/exec";
+  const ASSISTANT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
   document.getElementById("assistantBtn").href = ASSISTANT_URL;
 </script>
 
 </body>
 </html>
+ 
