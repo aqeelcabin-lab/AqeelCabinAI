@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aqeel Cabin & Dome virtual assistant, FAQ and availability calendar." />
+  <title>Aqeel Cabin & Dome Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-overlay">
+        <p class="eyebrow">🌿 Aqeel Cabin & Jungle River Dome</p>
+        <h1 id="mainTitle">Asistente Virtual</h1>
+        <p id="mainSubtitle">Pregunte, revise disponibilidad y contáctenos por WhatsApp.</p>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card language-card" aria-label="Language selection">
+        <h2 id="languageTitle">Seleccione su idioma</h2>
+        <div class="button-row">
+          <button id="btnSpanish" class="lang-btn active" type="button" data-lang="es">🇪🇸 Español</button>
+          <button id="btnEnglish" class="lang-btn" type="button" data-lang="en">🇺🇸 English</button>
+        </div>
+      </section>
+
+      <section class="card property-card" aria-label="Property selection">
+        <div class="section-heading">
+          <h2 id="propertyTitle">Seleccione alojamiento</h2>
+          <p id="propertyHint">El calendario, la foto y la información cambiarán automáticamente.</p>
+        </div>
+
+        <label class="field-label" for="propertySelect" id="propertyLabel">Alojamiento</label>
+        <select id="propertySelect">
+          <option value="cabin">Aqeel Cabin</option>
+          <option value="dome">Aqeel Dome</option>
+        </select>
+
+        <div class="property-preview">
+          <img id="propertyImage" class="property-image" src="cabin.jpg" alt="Aqeel Cabin" />
+          <div class="property-info">
+            <h3 id="propertyName">Aqeel Cabin</h3>
+            <p id="propertyDescription">Cabaña privada en la naturaleza, ideal para familias o grupos pequeños.</p>
+            <div id="amenityList" class="amenity-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card faq-card" aria-label="FAQ assistant">
+        <div class="section-heading">
+          <h2 id="faqTitle">🤖 Pregunte aquí</h2>
+          <p id="faqIntro">El asistente buscará la respuesta desde nuestra base de datos.</p>
+        </div>
+
+        <div id="blinkPrompt" class="blink-prompt">👇 Escriba su pregunta aquí / Type your question here 👇</div>
+
+        <label class="field-label" for="faqInput" id="faqLabel">Pregunta</label>
+        <input
+          id="faqInput"
+          class="faq-input"
+          type="text"
+          autocomplete="off"
+          placeholder="Escriba su pregunta aquí / Type your question here"
+        />
+
+        <div id="faqStatus" class="status-line" aria-live="polite"></div>
+        <div id="answerBox" class="answer-box" aria-live="polite"></div>
+      </section>
+
+      <section class="card calendar-card" aria-label="Availability calendar">
+        <div class="section-heading">
+          <h2 id="calendarTitle">📅 Calendario de disponibilidad</h2>
+          <p id="calendarIntro">Fechas en rojo están ocupadas. Fechas en verde parecen disponibles.</p>
+        </div>
+
+        <div class="calendar-controls">
+          <button id="prevMonthBtn" class="secondary-btn" type="button">‹</button>
+          <h3 id="monthTitle">Cargando...</h3>
+          <button id="nextMonthBtn" class="secondary-btn" type="button">›</button>
+        </div>
+
+        <div class="legend">
+          <span><i class="legend-dot available-dot"></i><span id="availableLegend">Disponible</span></span>
+          <span><i class="legend-dot booked-dot"></i><span id="bookedLegend">Ocupado</span></span>
+          <span><i class="legend-dot today-dot"></i><span id="todayLegend">Hoy</span></span>
+        </div>
+
+        <div id="calendarGrid" class="calendar-grid" aria-live="polite"></div>
+        <p id="lastUpdated" class="small-note">Cargando calendario...</p>
+      </section>
+
+      <section class="card checker-card" aria-label="Availability checker">
+        <div class="section-heading">
+          <h2 id="checkerTitle">📆 Revisar fechas específicas</h2>
+          <p id="checkerIntro">Use fecha exacta. No escriba “el próximo fin de semana”.</p>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label class="field-label" for="arrivalDate" id="arrivalLabel">Fecha de llegada</label>
+            <label class="date-box" for="arrivalDate">
+              <span id="dateIconLabel">📅 Seleccione fecha de llegada</span>
+              <input id="arrivalDate" type="date" />
+            </label>
+          </div>
+
+          <div>
+            <label class="field-label" for="nightsInput" id="nightsLabel">Número de noches</label>
+            <input id="nightsInput" type="number" min="1" value="1" />
+          </div>
+
+          <div>
+            <label class="field-label" for="guestsInput" id="guestsLabel">Número de huéspedes</label>
+            <input id="guestsInput" type="number" min="1" value="2" />
+          </div>
+        </div>
+
+        <button id="checkBtn" class="primary-btn" type="button">Revisar disponibilidad</button>
+        <div id="availabilityResult" class="result-box" aria-live="polite"></div>
+      </section>
+
+      <section class="card contact-card" aria-label="Contact">
+        <h2 id="contactTitle">💬 Contacto</h2>
+        <p id="contactText">Para confirmar precio y reservar, envíenos la fecha exacta, número de noches, número de huéspedes y si desea cabaña o domo.</p>
+        <a id="whatsappButton" class="whatsapp-btn" href="https://wa.me/14037008800" target="_blank" rel="noopener">WhatsApp: +1 403 700 8800</a>
+      </section>
+    </main>
+  </div>
+
+  <a id="floatingWhatsapp" class="floating-whatsapp" href="https://wa.me/14037008800" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+  <noscript>
+    <div class="noscript-warning">
+      This website needs JavaScript to show FAQ answers and live availability.
+    </div>
+  </noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
