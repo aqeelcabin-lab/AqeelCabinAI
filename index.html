@@ -1,11 +1,472 @@
-<section style="padding: 20px; background: #f4f1e8;">
-  <h2 style="text-align:center;">🌿 Aqeel Cabin & Dome Virtual Assistant</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqeel Cabin & Dome Assistant</title>
 
-  <iframe
-    src="https://script.google.com/macros/s/AKfycbyizMBrLb15S3koQmKivJCX3wBTqZhgl6t1Op1s5AGxlOdz9z6XAju-5LdwUbeSk0vP/exec"
-    width="100%"
-    height="2200"
-    style="border: none; border-radius: 16px;"
-    loading="lazy">
-  </iframe>
-</section>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4efe3;
+      color: #263b2b;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .hero {
+      background: #2f6b3f;
+      color: white;
+      text-align: center;
+      padding: 35px 15px;
+      border-radius: 0 0 18px 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 18px 0;
+      border-radius: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    .language-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    button, select, input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #2f6b3f;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+
+    .notice {
+      background: #fff4c7;
+      border-left: 5px solid #d6a000;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+
+    .blink-text {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #b00000;
+      margin-bottom: 10px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.25; }
+    }
+
+    .faq-highlight {
+      border: 3px solid #2f6b3f !important;
+      background: #fffdf0 !important;
+      box-shadow: 0 0 12px rgba(47,107,63,0.6);
+      font-size: 18px;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    #answerBox {
+      margin-top: 15px;
+      padding: 14px;
+      background: #eaf4ea;
+      border-radius: 12px;
+      display: none;
+      font-size: 17px;
+    }
+
+    .property-photo {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-top: 12px;
+    }
+
+    .legend {
+      margin: 15px 0;
+    }
+
+    .available {
+      background: #e4f2e4;
+    }
+
+    .booked {
+      background: #f7a6a6;
+      color: #7a0000;
+      font-weight: bold;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .day-name {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .day {
+      padding: 14px 4px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .today {
+      border: 2px solid #2f6b3f;
+    }
+
+    .date-box {
+      display: block;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+
+    .date-box input {
+      margin-top: 8px;
+      background: white;
+    }
+
+    .whatsapp {
+      display: block;
+      text-align: center;
+      background: #25d366;
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .language-buttons {
+        flex-direction: row;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .calendar {
+        gap: 4px;
+      }
+
+      .day {
+        padding: 12px 2px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="hero">
+      <h1>🌿 Aqeel Cabin & Dome</h1>
+      <p>Asistente virtual / Virtual Assistant</p>
+    </div>
+
+    <div class="card">
+      <h3 style="text-align:center;">Seleccione su idioma / Choose your language</h3>
+      <div class="language-buttons">
+        <button onclick="setLanguage('es')">🇪🇸 Español</button>
+        <button onclick="setLanguage('en')">🇺🇸 English</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🤖 Pregunte aquí</h2>
+      <div class="notice">
+        Escriba su pregunta. El asistente buscará la respuesta desde nuestra base de datos.
+      </div>
+
+      <div class="blink-text">👇 Escriba su pregunta aquí / Type your question here 👇</div>
+
+      <input
+        id="faqInput"
+        class="faq-highlight"
+        type="text"
+        placeholder="Escriba su pregunta aquí / Type your question here"
+        oninput="searchFAQ()"
+      />
+
+      <div id="answerBox"></div>
+    </div>
+
+    <div class="card">
+      <h2>📅 Calendario de disponibilidad</h2>
+
+      <select id="calendarProperty" onchange="changePropertyPhoto(); renderCalendar();">
+        <option value="cabin">Aqeel Cabin</option>
+        <option value="dome">Aqeel Dome</option>
+      </select>
+
+      <img id="propertyPhoto" class="property-photo" src="cabin.jpg" alt="Aqeel Cabin or Dome">
+
+      <div class="legend">
+        <span style="background:#e4f2e4; padding:8px; border-radius:8px;">Disponible</span>
+        <span style="background:#f7a6a6; padding:8px; border-radius:8px;">Ocupado</span>
+      </div>
+
+      <h3 style="text-align:center;">julio de 2026</h3>
+
+      <div class="calendar" id="calendar"></div>
+
+      <p style="font-size:13px;">
+        Última actualización desde Airbnb: 7/8/2026, 8:21:23 PM
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>📅 Revisar fechas específicas</h2>
+
+      <div class="notice">
+        Use fecha exacta. No escriba “el próximo fin de semana”.
+      </div>
+
+      <select id="checkProperty" onchange="syncPropertySelection()">
+        <option value="cabin">Aqeel Cabin</option>
+        <option value="dome">Aqeel Dome</option>
+      </select>
+
+      <label class="date-box">
+        📅 Seleccione fecha de llegada
+        <input type="date" id="checkDate">
+      </label>
+
+      <input type="number" id="nights" placeholder="Número de noches" min="1" value="1">
+
+      <input type="number" id="guests" placeholder="Número de huéspedes" min="1" value="2">
+
+      <button onclick="checkAvailability()">Revisar disponibilidad</button>
+
+      <div id="availabilityResult" style="margin-top:15px; font-weight:bold;"></div>
+    </div>
+
+    <a class="whatsapp" href="https://wa.me/14037008800" target="_blank">
+      💬 WhatsApp: +14037008800
+    </a>
+
+  </div>
+
+  <script>
+    let currentLanguage = "es";
+
+    const faqData = [
+      {
+        esKeywords: "precio,cuesta,costo,tarifa,valor",
+        enKeywords: "price,cost,how much,rate",
+        esAnswer: "El precio depende de la fecha, número de noches, número de huéspedes y si desea la cabaña o el domo. Por favor envíenos la fecha exacta de llegada, número de noches y número de huéspedes.",
+        enAnswer: "The price depends on the date, number of nights, number of guests, and whether you want the cabin or the dome. Please send us the exact arrival date, number of nights, and number of guests."
+      },
+      {
+        esKeywords: "cabaña comparte,compartida,privada,huéspedes",
+        enKeywords: "shared cabin,private cabin,shared,guests",
+        esAnswer: "No. La cabaña es completamente privada y reservada exclusivamente para su grupo.",
+        enAnswer: "No. The cabin is completely private and reserved exclusively for your group."
+      },
+      {
+        esKeywords: "domo comparte,compartido,privado,huéspedes",
+        enKeywords: "shared dome,private dome,shared,guests",
+        esAnswer: "No. El domo es completamente privado y reservado exclusivamente para su grupo.",
+        enAnswer: "No. The dome is completely private and reserved exclusively for your group."
+      },
+      {
+        esKeywords: "cocina,cocinar,estufa,microondas,refrigerador",
+        enKeywords: "kitchen,cooking,stove,microwave,refrigerator",
+        esAnswer: "Cabaña: cocina completa con refrigerador, microondas, cafetera, estufa de gas, barbacoa de gas, ollas, sartenes, platos y utensilios. Domo: kitchenette con refrigerador, microondas, cafetera, utensilios básicos y barbacoa de gas.",
+        enAnswer: "Cabin: full kitchen with refrigerator, microwave, coffee maker, gas stove, gas BBQ, pots, pans, dishes and utensils. Dome: kitchenette with refrigerator, microwave, coffee maker, basic utensils and outdoor gas BBQ."
+      },
+      {
+        esKeywords: "wifi,internet,starlink",
+        enKeywords: "wifi,internet,starlink",
+        esAnswer: "Sí. Tenemos internet Starlink WiFi en la propiedad.",
+        enAnswer: "Yes. We have Starlink WiFi internet on the property."
+      },
+      {
+        esKeywords: "río,nadar,bañarse",
+        enKeywords: "river,swim,swimming",
+        esAnswer: "Sí. Generalmente es seguro nadar en el río y es una de las principales atracciones de la propiedad.",
+        enAnswer: "Yes. The river is generally safe for swimming and is one of the property's main attractions."
+      },
+      {
+        esKeywords: "cocodrilos,cocodrilo",
+        enKeywords: "crocodiles,alligators",
+        esAnswer: "No. No hay cocodrilos en el río cerca de la propiedad.",
+        enAnswer: "No. There are no crocodiles in the river near the property."
+      },
+      {
+        esKeywords: "cascada,sendero,caminar",
+        enKeywords: "waterfall,hike,trail",
+        esAnswer: "Sí. Hay una cascada aproximadamente a 30 minutos caminando desde la propiedad. El regreso toma aproximadamente el mismo tiempo.",
+        enAnswer: "Yes. There is a waterfall about a 30-minute walk from the property. The return walk takes about the same time."
+      }
+    ];
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      searchFAQ();
+    }
+
+    function searchFAQ() {
+      const input = document.getElementById("faqInput").value.toLowerCase().trim();
+      const answerBox = document.getElementById("answerBox");
+
+      if (!input) {
+        answerBox.style.display = "none";
+        return;
+      }
+
+      let found = null;
+
+      for (const item of faqData) {
+        const keywords = currentLanguage === "es"
+          ? item.esKeywords.toLowerCase()
+          : item.enKeywords.toLowerCase();
+
+        const allKeywords = item.esKeywords.toLowerCase() + "," + item.enKeywords.toLowerCase();
+
+        if (allKeywords.split(",").some(k => input.includes(k.trim()) || k.trim().includes(input))) {
+          found = item;
+          break;
+        }
+      }
+
+      answerBox.style.display = "block";
+
+      if (found) {
+        answerBox.innerText = currentLanguage === "es" ? found.esAnswer : found.enAnswer;
+      } else {
+        answerBox.innerText = currentLanguage === "es"
+          ? "No encontré una respuesta exacta. Por favor escriba su pregunta de otra manera o contáctenos por WhatsApp."
+          : "I could not find an exact answer. Please try asking another way or contact us on WhatsApp.";
+      }
+    }
+
+    const bookedDates = {
+      cabin: [10,11,12,13,18,19,20,21,24,25,31],
+      dome: [8,9,15,16,22,23,29,30]
+    };
+
+    function renderCalendar() {
+      const property = document.getElementById("calendarProperty").value;
+      const calendar = document.getElementById("calendar");
+      calendar.innerHTML = "";
+
+      const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+      dayNames.forEach(day => {
+        const div = document.createElement("div");
+        div.className = "day-name";
+        div.innerText = day;
+        calendar.appendChild(div);
+      });
+
+      for (let i = 0; i < 3; i++) {
+        calendar.appendChild(document.createElement("div"));
+      }
+
+      for (let day = 1; day <= 31; day++) {
+        const div = document.createElement("div");
+        div.className = "day";
+
+        if (bookedDates[property].includes(day)) {
+          div.classList.add("booked");
+        } else {
+          div.classList.add("available");
+        }
+
+        if (day === 8) {
+          div.classList.add("today");
+        }
+
+        div.innerText = day;
+        calendar.appendChild(div);
+      }
+    }
+
+    function changePropertyPhoto() {
+      const property = document.getElementById("calendarProperty").value;
+      const photo = document.getElementById("propertyPhoto");
+
+      if (property === "cabin") {
+        photo.src = "cabin.jpg";
+        photo.alt = "Aqeel Cabin";
+      } else {
+        photo.src = "dome.jpg";
+        photo.alt = "Aqeel Dome";
+      }
+
+      document.getElementById("checkProperty").value = property;
+    }
+
+    function syncPropertySelection() {
+      const property = document.getElementById("checkProperty").value;
+      document.getElementById("calendarProperty").value = property;
+      changePropertyPhoto();
+      renderCalendar();
+    }
+
+    function checkAvailability() {
+      const property = document.getElementById("checkProperty").value;
+      const dateValue = document.getElementById("checkDate").value;
+      const nights = Number(document.getElementById("nights").value);
+      const result = document.getElementById("availabilityResult");
+
+      if (!dateValue) {
+        result.innerText = "Por favor seleccione una fecha exacta.";
+        return;
+      }
+
+      const startDay = new Date(dateValue).getDate();
+
+      for (let i = 0; i < nights; i++) {
+        if (bookedDates[property].includes(startDay + i)) {
+          result.innerText = "Lo sentimos, una o más noches están ocupadas.";
+          return;
+        }
+      }
+
+      result.innerText = "Buenas noticias. Estas fechas parecen disponibles. Por favor contáctenos por WhatsApp para confirmar el precio.";
+    }
+
+    renderCalendar();
+  </script>
+</body>
+</html>
