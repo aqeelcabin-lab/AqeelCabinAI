@@ -2,7 +2,7 @@
 // Put this file in GitHub as script.js
 // Replace API_URL with your Google Apps Script Web App URL ending in /exec
 
-const API_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const API_URL = "https://script.google.com/macros/s/AKfycbz6STm-6MIkOSanLwgRkq_ennnvZGa7E9YpwYaRTbiUm81-ZGjhYm0zkLuWUvM95Mir_Q/exec";
 
 let currentLanguage = "es";
 let faqData = [];
