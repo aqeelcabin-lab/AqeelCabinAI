@@ -143,7 +143,8 @@ async function loadFAQ() {
     const response = await fetch(`${API_URL}?action=faq`);
     const data = await response.json();
     faqData = Array.isArray(data.faq) ? data.faq : [];
-    setText("faqStatus", "");
+    console.log("FAQ loaded:", faqData.length);
+setText("faqStatus", "");
   } catch (error) {
     console.error("FAQ load error:", error);
     faqData = [];
@@ -171,6 +172,7 @@ async function answerQuestion() {
   setText("faqStatus", t.searching);
 
   try {
+    console.log("FAQ available when searching:", faqData.length);
     const match = findBestFaqMatch(question);
 
     if (match && match.score >= 4) {
