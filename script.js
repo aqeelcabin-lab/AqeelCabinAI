@@ -190,16 +190,22 @@ async function askBackend(question) {
   setText("faqStatus", t.searching);
 
   try {
-    const data = await fetchJsonWithRetry(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "ask",
-        question: question,
-        language: currentLanguage,
-        property: currentProperty
-      })
-    }, 2);
+    const askUrl =
+  API_URL +
+  "?action=ask" +
+  "&question=" + encodeURIComponent(question) +
+  "&language=" + encodeURIComponent(currentLanguage) +
+  "&property=" + encodeURIComponent(currentProperty) +
+  "&_=" + Date.now();
+
+const data = await fetchJsonWithRetry(
+  askUrl,
+  {
+    method: "GET",
+    cache: "no-store"
+  },
+  2
+);
 
     if (requestId !== currentRequestId) return;
 
