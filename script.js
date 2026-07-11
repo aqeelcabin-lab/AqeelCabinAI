@@ -1,6 +1,6 @@
 // Aqeel Assistant v5 — GitHub Pages frontend
 // This URL must end in /exec only.
-const API_URL = "https://script.google.com/macros/s/AKfycby0THqdT9zjs8uowwJK_A5BGWEEEGgBTSdz7II2Er18kAtHew_J8ce0jRe8qQ3I_tVAM/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby0THqdT9zjs8uowwJK_A5BGWEEEgBTSdz7II2Er18kAtHew_J8ceOjRe8qQ3I_tVAM/exec";
 
 let currentLanguage = "es";
 let currentProperty = "cabin";
