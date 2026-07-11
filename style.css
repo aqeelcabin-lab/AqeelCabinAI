@@ -1,0 +1,225 @@
+:root {
+  --green: #28623a;
+  --green-dark: #1d472b;
+  --cream: #f4efe3;
+  --white: #ffffff;
+  --text: #233228;
+  --muted: #617066;
+  --line: #cad4cc;
+  --available: #dff2df;
+  --booked: #f7b3b3;
+  --today: #fff0a8;
+  --notice: #fff7d8;
+  --whatsapp: #168c43;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+.app {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  padding: 0 14px 30px;
+}
+
+.hero {
+  margin: 0 -14px 18px;
+  padding: 34px 18px;
+  color: white;
+  text-align: center;
+  background: linear-gradient(145deg, var(--green), var(--green-dark));
+  border-radius: 0 0 26px 26px;
+}
+
+.hero h1 {
+  margin: 12px 0 6px;
+  font-size: clamp(28px, 7vw, 44px);
+  line-height: 1.1;
+}
+
+.hero p { margin: 0; }
+
+.hero-badge {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.15);
+  font-weight: 700;
+}
+
+.card {
+  margin: 16px 0;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 5px 16px rgba(0,0,0,.10);
+}
+
+.card h2 { margin: 0 0 14px; }
+.card h3 { margin: 0 0 6px; }
+
+.language-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+button, select, input, textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  font: inherit;
+}
+
+textarea { resize: vertical; }
+
+button {
+  border: 0;
+  color: white;
+  background: var(--green);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover { background: var(--green-dark); }
+button:disabled { opacity: .65; cursor: wait; }
+
+.active-language {
+  outline: 4px solid rgba(40,98,58,.22);
+  background: var(--green-dark);
+}
+
+.field-label {
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: 700;
+}
+
+.notice {
+  padding: 12px 14px;
+  background: var(--notice);
+  border-left: 5px solid #d5a300;
+  border-radius: 10px;
+}
+
+.property-info {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #edf6ee;
+}
+
+#askButton, #checkButton { margin-top: 14px; }
+
+.answer-box {
+  display: none;
+  margin-top: 14px;
+  padding: 15px;
+  border-radius: 14px;
+  background: #e9f4ea;
+  white-space: pre-wrap;
+}
+
+.small-status {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.source-label {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.legend-item {
+  padding: 7px 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.available-sample { background: var(--available); }
+.booked-sample { background: var(--booked); }
+.today-sample { background: var(--today); }
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.calendar-header h3 {
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.small-button {
+  min-height: 44px;
+  padding: 4px;
+  font-size: 30px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day-name {
+  padding: 7px 1px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.day {
+  display: grid;
+  min-height: 43px;
+  place-items: center;
+  border-radius: 9px;
+  font-weight: 700;
+}
+
+.day.available { background: var(--available); }
+.day.booked { background: var(--booked); }
+.day.today { outline: 3px solid #d19b00; }
+.day.blank { background: transparent; }
+
+.whatsapp {
+  display: block;
+  padding: 14px;
+  color: white;
+  background: var(--whatsapp);
+  border-radius: 14px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 430px) {
+  .card { padding: 16px; }
+  .day { min-height: 38px; font-size: 14px; }
+  .language-buttons { grid-template-columns: 1fr; }
+}
