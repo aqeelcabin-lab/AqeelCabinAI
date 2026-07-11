@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aqeel Cabin and Jungle River Dome virtual assistant and availability calendar." />
+  <title>Aqeel Cabin & Dome Assistant</title>
+  <link rel="stylesheet" href="style.css?v=7" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="hero-badge">🌿 Aqeel Cabin Panama</div>
+      <h1>Aqeel Cabin & Jungle River Dome</h1>
+      <p id="heroSubtitle">Virtual Assistant & Availability</p>
+    </header>
+
+    <section class="card">
+      <h2>🌐 <span id="languageTitle">Language / Idioma</span></h2>
+      <div class="language-buttons">
+        <button id="btnSpanish" class="secondary" type="button">🇵🇦 Español</button>
+        <button id="btnEnglish" class="secondary" type="button">🇨🇦 English</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="propertyTitle">🏡 Select accommodation</h2>
+      <select id="calendarProperty" aria-label="Property">
+        <option value="cabin">Aqeel Cabin</option>
+        <option value="dome">Aqeel Dome</option>
+      </select>
+      <div class="property-info">
+        <h3 id="selectedPropertyName">Aqeel Cabin</h3>
+        <p id="selectedPropertyDescription"></p>
+      </div>
+    </section>
+
+    <section class="card assistant-card">
+      <h2 id="faqTitle">🤖 Ask here</h2>
+      <p class="notice" id="faqNotice">
+        We use verified FAQ information and AI to provide a natural answer.
+      </p>
+
+      <label for="faqInput" id="faqLabel">Your question</label>
+      <textarea
+        id="faqInput"
+        rows="4"
+        maxlength="500"
+        autocomplete="off"
+        placeholder="Example: Can I visit only during the day?"
+      ></textarea>
+
+      <p id="faqStatus" class="status" aria-live="polite"></p>
+
+      <div id="answerBox" class="answer-box" hidden>
+        <p id="answerText"></p>
+        <small id="answerSource"></small>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="calendarTitle">📅 Availability calendar</h2>
+
+      <div class="legend">
+        <span><i class="legend-dot available"></i><span id="availableLegend">Available</span></span>
+        <span><i class="legend-dot booked"></i><span id="bookedLegend">Booked</span></span>
+        <span><i class="legend-dot today"></i><span id="todayLegend">Today</span></span>
+      </div>
+
+      <p id="calendarStatus" class="calendar-status" aria-live="polite"></p>
+
+      <div class="calendar-toolbar">
+        <button id="prevMonthBtn" class="month-button" type="button" aria-label="Previous month">‹</button>
+        <h3 id="calendarMonthTitle"></h3>
+        <button id="nextMonthBtn" class="month-button" type="button" aria-label="Next month">›</button>
+      </div>
+
+      <div class="weekdays" aria-hidden="true">
+        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
+        <span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
+
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <p id="calendarUpdated" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2 id="checkTitle">🗓️ Check specific dates</h2>
+      <p class="notice" id="dateNotice">
+        Select an exact date. Please do not write only “next weekend.”
+      </p>
+
+      <div class="form-grid">
+        <label>
+          <span id="arrivalLabel">Arrival date</span>
+          <div class="date-input-wrap">
+            <input id="arrivalDate" type="date" />
+            <button id="openDatePickerBtn" class="date-picker-button" type="button" aria-label="Open calendar">📅</button>
+          </div>
+        </label>
+
+        <label>
+          <span id="nightsLabel">Number of nights</span>
+          <input id="nights" type="number" min="1" max="30" value="1" />
+        </label>
+
+        <label>
+          <span id="guestsLabel">Number of guests</span>
+          <input id="guests" type="number" min="1" max="10" value="2" />
+        </label>
+      </div>
+
+      <button id="checkAvailabilityBtn" class="primary" type="button">Check availability</button>
+      <div id="availabilityResult" class="result-box" hidden></div>
+    </section>
+
+    <section class="card contact-card">
+      <h2 id="contactTitle">💬 Contact</h2>
+      <a id="whatsappLink" class="whatsapp" href="https://wa.me/14037008800" target="_blank" rel="noopener">
+        WhatsApp: +1 403-700-8800
+      </a>
+    </section>
+  </main>
+
+  <script src="script.js?v=7"></script>
+</body>
+</html>
