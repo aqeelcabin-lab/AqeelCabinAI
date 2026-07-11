@@ -1,5 +1,5 @@
 // Aqeel Assistant v7 — safer calendar handling and natural FAQ answers
-const API_URL = "https://script.google.com/macros/s/AKfycbzUjzonnZD1J9kwT57PKkfYUDVtunCVhi86czxYpFCaaO6S6EIUNO21umdl9sFqhsjc/exec"; 
+const API_URL = "https://script.google.com/macros/s/AKfycbzwUjnsbDWmyreM_BmB1xGL9fgowC3jGICJGTx7NZ8BLUkX_49QrTqK2Ztu6kVbN-aH/exec"; 
 
 let currentLanguage = "es";
 let currentProperty = "cabin";
