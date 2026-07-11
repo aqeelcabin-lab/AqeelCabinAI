@@ -175,14 +175,17 @@ async function fetchJsonWithRetry(url, options, attempts) {
   throw lastError;
 }
 
+
 async function askBackend(question) {
   const t = ui[currentLanguage];
   const answerBox = byId("answerBox");
+  const answerText = byId("answerText");
+  const answerSource = byId("answerSource");
 
   if (question.length < 3) {
     answerBox.hidden = false;
-    setText("answerText", t.emptyQuestion);
-    setText("answerSource", "");
+    answerText.textContent = t.emptyQuestion;
+    answerSource.textContent = "";
     return;
   }
 
@@ -191,40 +194,53 @@ async function askBackend(question) {
 
   try {
     const askUrl =
-  API_URL +
-  "?action=ask" +
-  "&question=" + encodeURIComponent(question) +
-  "&language=" + encodeURIComponent(currentLanguage) +
-  "&property=" + encodeURIComponent(currentProperty) +
-  "&_=" + Date.now();
+      API_URL +
+      "?action=ask" +
+      "&question=" + encodeURIComponent(question) +
+      "&language=" + encodeURIComponent(currentLanguage) +
+      "&property=" + encodeURIComponent(currentProperty) +
+      "&_=" + Date.now();
 
-const data = await fetchJsonWithRetry(
-  askUrl,
-  {
-    method: "GET",
-    cache: "no-store"
-  },
-  2
-);
+    const response = await fetch(askUrl, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Assistant HTTP " + response.status);
+    }
+
+    const data = await response.json();
+
+    if (data.success === false) {
+      throw new Error(data.error || data.message || "Assistant request failed.");
+    }
 
     if (requestId !== currentRequestId) return;
 
     answerBox.hidden = false;
-    setText("answerText", data.answer || data.message || t.connectionError);
-    setText(
-      "answerSource",
-      data.source === "faq_ai" ? t.databaseSource :
-      data.source === "ai" ? t.aiSource : ""
-    );
+    answerText.textContent =
+      data.answer || data.message || t.connectionError;
+
+    if (data.source === "faq_ai" || data.source === "faq") {
+      answerSource.textContent = t.databaseSource;
+    } else if (data.source === "ai") {
+      answerSource.textContent = t.aiSource;
+    } else {
+      answerSource.textContent = "";
+    }
   } catch (error) {
     console.error("Assistant error:", error);
+
     if (requestId !== currentRequestId) return;
 
     answerBox.hidden = false;
-    setText("answerText", t.connectionError);
-    setText("answerSource", "");
+    answerText.textContent = t.connectionError;
+    answerSource.textContent = "";
   } finally {
-    if (requestId === currentRequestId) setText("faqStatus", "");
+    if (requestId === currentRequestId) {
+      setText("faqStatus", "");
+    }
   }
 }
 
