@@ -184,7 +184,7 @@ async function askBackend(question) {
 
   if (question.length < 3) {
     answerBox.hidden = false;
-    answerText.textContent = t.emptyQuestion;
+    renderTextWithClickableLinks(answerText, t.emptyQuestion);
     answerSource.textContent = "";
     return;
   }
@@ -219,8 +219,10 @@ async function askBackend(question) {
     if (requestId !== currentRequestId) return;
 
     answerBox.hidden = false;
-    answerText.textContent =
-      data.answer || data.message || t.connectionError;
+    renderTextWithClickableLinks(
+      answerText,
+      data.answer || data.message || t.connectionError
+    );
 
     if (data.source === "faq_ai" || data.source === "faq") {
       answerSource.textContent = t.databaseSource;
@@ -235,7 +237,7 @@ async function askBackend(question) {
     if (requestId !== currentRequestId) return;
 
     answerBox.hidden = false;
-    answerText.textContent = t.connectionError;
+    renderTextWithClickableLinks(answerText, t.connectionError);
     answerSource.textContent = "";
   } finally {
     if (requestId === currentRequestId) {
@@ -515,6 +517,93 @@ function formatDateTime(value) {
     currentLanguage === "es" ? "es-PA" : "en-CA",
     { dateStyle: "medium", timeStyle: "short" }
   ).format(date);
+}
+
+
+/**
+ * Safely displays answer text and automatically converts:
+ * - https:// links
+ * - www. links
+ * - email addresses
+ * - phone numbers
+ * into clickable links.
+ *
+ * The spreadsheet and AI can continue returning ordinary plain text.
+ */
+function renderTextWithClickableLinks(container, value) {
+  if (!container) return;
+
+  const text = String(value || "");
+  container.replaceChildren();
+
+  const tokenPattern =
+    /(https?:\/\/[^\s<]+|www\.[^\s<]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|(?:\+?\d[\d\s().-]{7,}\d))/gi;
+
+  let lastIndex = 0;
+  let match;
+
+  while ((match = tokenPattern.exec(text)) !== null) {
+    appendPlainText(container, text.slice(lastIndex, match.index));
+
+    const originalToken = match[0];
+    const parts = splitTrailingPunctuation(originalToken);
+    const token = parts.token;
+
+    if (token) {
+      const link = document.createElement("a");
+      link.textContent = token;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.style.color = "#075e54";
+      link.style.textDecoration = "underline";
+      link.style.fontWeight = "700";
+      link.style.cursor = "pointer";
+      link.style.pointerEvents = "auto";
+      link.style.wordBreak = "break-word";
+
+      if (/^https?:\/\//i.test(token)) {
+        link.href = token;
+      } else if (/^www\./i.test(token)) {
+        link.href = "https://" + token;
+      } else if (/^[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}$/i.test(token)) {
+        link.href = "mailto:" + token;
+      } else {
+        const digits = token.replace(/\D/g, "");
+        link.href = "https://wa.me/" + digits;
+        link.setAttribute("aria-label", "Open WhatsApp: " + token);
+      }
+
+      container.appendChild(link);
+    }
+
+    appendPlainText(container, parts.trailing);
+    lastIndex = match.index + originalToken.length;
+  }
+
+  appendPlainText(container, text.slice(lastIndex));
+}
+
+function appendPlainText(container, text) {
+  if (!text) return;
+
+  const lines = text.split("\n");
+
+  lines.forEach(function(line, index) {
+    container.appendChild(document.createTextNode(line));
+
+    if (index < lines.length - 1) {
+      container.appendChild(document.createElement("br"));
+    }
+  });
+}
+
+function splitTrailingPunctuation(token) {
+  const match = token.match(/^(.*?)([.,!?;:)\]}]+)?$/);
+
+  return {
+    token: match && match[1] ? match[1] : token,
+    trailing: match && match[2] ? match[2] : ""
+  };
 }
 
 function byId(id) { return document.getElementById(id); }
